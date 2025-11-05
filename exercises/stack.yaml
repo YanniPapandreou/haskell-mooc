@@ -1,2 +1,6 @@
-resolver: lts-20.25 # GHC 9.2.8
+resolver: lts-21.25
 install-ghc: true
+allow-newer: true
+# nix:
+#   enable: true
+#   packages: [zlib]
