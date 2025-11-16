@@ -302,28 +302,19 @@ data Arithmetic
   deriving (Show)
 
 literal :: Integer -> Arithmetic
-literal n = Literal n
+literal = Literal
 
 operation :: String -> Arithmetic -> Arithmetic -> Arithmetic
-operation op ex1 ex2 = case op of
-  "+" -> Add ex1 ex2
-  "*" -> Multiply ex1 ex2
+operation "+" = Add
+operation "*" = Multiply
 
 evaluate :: Arithmetic -> Integer
 evaluate (Literal n) = n
-evaluate (Add (Literal n) ex) = n + evaluate ex
-evaluate (Add ex (Literal n)) = n + evaluate ex
-evaluate (Multiply (Literal n) ex) = n * evaluate ex
-evaluate (Multiply ex (Literal n)) = n * evaluate ex
 evaluate (Add ex1 ex2) = evaluate ex1 + evaluate ex2
 evaluate (Multiply ex1 ex2) = evaluate ex1 * evaluate ex2
 
 
 render :: Arithmetic -> String
 render (Literal n) = show n
-render (Add (Literal n) ex) = "(" ++ show n ++ "+" ++ render ex ++ ")"
-render (Add ex (Literal n)) = "(" ++ render ex ++ "+" ++ show n ++ ")"
-render (Multiply (Literal n) ex) = "(" ++ show n ++ "*" ++ render ex ++ ")"
-render (Multiply ex (Literal n)) = "(" ++ render ex ++ "+" ++ show n ++ ")"
 render (Add ex1 ex2) = "(" ++ render ex1 ++ "+" ++ render ex2 ++ ")"
 render (Multiply ex1 ex2) = "(" ++ render ex1 ++ "*" ++ render ex2 ++ ")"
